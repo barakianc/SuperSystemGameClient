@@ -27,4 +27,12 @@ public class BaseUIWindowContentControls : MonoBehaviour, IScrollHandler
             m_InnerContentTransform.sizeDelta = new Vector2(m_InnerContentTransform.sizeDelta.x + (eventData.scrollDelta.y * 10), m_InnerContentTransform.sizeDelta.y + (eventData.scrollDelta.y * 10));
         }
     }
+
+    public RectTransform InnerContentTransform
+    {
+        get
+        {
+            return m_InnerContentTransform;
+        }
+    }
 }

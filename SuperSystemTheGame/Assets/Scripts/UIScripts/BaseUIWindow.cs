@@ -17,6 +17,9 @@ public class BaseUIWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     [SerializeField]
     protected Texture2D m_MouseCursorScaleH;
 
+    [SerializeField]
+    protected BaseUIWindowContentControls m_WindowContentContainer;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -122,7 +125,7 @@ public class BaseUIWindow : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     //Public Functions
      public void CloseButtonPressed()
     {
-        DestroyImmediate(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     public void SetWindowImage( Sprite image )
