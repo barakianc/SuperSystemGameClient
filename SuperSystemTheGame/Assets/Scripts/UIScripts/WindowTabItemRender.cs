@@ -3,10 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class WindowTabItemRender : BaseListItemRenderer {
+
+    public class TabItemRendererData
+    {
+        protected string m_TabName;
+        protected int m_TabIndx;
+
+        public string TabName
+        {
+            get { return m_TabName;  }
+            set { m_TabName = value; }
+        }
+
+        public int TabIndx
+        {
+            get { return m_TabIndx;  }
+            set { m_TabIndx = value; }
+        }
+
+        public TabItemRendererData( string name, int indx)
+        {
+            this.m_TabName = name;
+            this.m_TabIndx = indx;
+        }
+    }
 
     [SerializeField]
     protected Text m_TabItemLabel;
+
+    protected int m_TabPageIndx;
 	// Use this for initialization
 	void Start () {
 		
@@ -22,13 +49,18 @@ public class WindowTabItemRender : BaseListItemRenderer {
     public override void setData(object data)
     {
 
-        if( data is string )
+        if( data is TabItemRendererData )
         {
-            string tabLabel = data as string;
+            TabItemRendererData tabData = data as TabItemRendererData;
 
-            if (m_TabItemLabel != null )
+            if (tabData != null)
             {
-                m_TabItemLabel.text = tabLabel;
+                if (m_TabItemLabel != null)
+                {
+                    m_TabItemLabel.text = tabData.TabName;
+                }
+
+                m_TabPageIndx = tabData.TabIndx;
             }
         }
     }

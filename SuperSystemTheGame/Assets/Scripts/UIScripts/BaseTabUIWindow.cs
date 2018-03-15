@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BaseTabUIWindow : BaseUIWindow {
 
+    //Delegates and Events
+    public delegate void TabItemRendererClicked(WindowTabItemRender itemRenderer);
+    public event TabItemRendererClicked OnTabItemRendererClicked;
+
     public WindowTabItemRender tabPrefab;
 
     [SerializeField]
@@ -64,6 +68,9 @@ public class BaseTabUIWindow : BaseUIWindow {
                         BaseWindowTabPageItemRenderer pageIR = GameObject.Instantiate<BaseWindowTabPageItemRenderer>(tabList[i] as BaseWindowTabPageItemRenderer);
                         m_TabPageList[i] = pageIR.gameObject;
                         pageIR.transform.SetParent(m_WindowContentContainer.InnerContentTransform);
+                        tabIR.setData( new WindowTabItemRender.TabItemRendererData( pageIR.pageName, i ));
+
+                        tabIR.OnListItemClicked += OnListItemClicked;
                     }
                 }
             }
@@ -88,4 +95,15 @@ public class BaseTabUIWindow : BaseUIWindow {
 
         m_TabPageList = null;
     }
+
+    protected void OnListItemClicked(BaseListItemRenderer listItemRenderer)
+    {
+        if( listItemRenderer is WindowTabItemRender && OnTabItemRendererClicked != null)
+        {
+            OnTabItemRendererClicked(listItemRenderer as WindowTabItemRender);
+        }
+
+        //TODO: CHANGE to that page
+    }
+
 }
