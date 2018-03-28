@@ -10,6 +10,8 @@ public class BaseTabUIWindow : BaseUIWindow {
 
     public WindowTabItemRender tabPrefab;
 
+    public BaseWindowTabPageItemRenderer[] baseWindowTabPageItemRendererTest;
+
     [SerializeField]
     protected RectTransform m_TabListContainer;
 
@@ -30,9 +32,11 @@ public class BaseTabUIWindow : BaseUIWindow {
     }
 
 
-	// Use this for initialization
-	void Start () {
-		
+    // Use this for initialization
+    void Start() {
+
+
+        setData(baseWindowTabPageItemRendererTest);
 	}
 	
 	// Update is called once per frame
@@ -43,9 +47,9 @@ public class BaseTabUIWindow : BaseUIWindow {
     //public functions
     public virtual void setData( object data )
     {
-        if( data != null )
+        if (data != null)
         {
-            ArrayList tabList = data as ArrayList;
+            ArrayList tabList = new ArrayList(data as BaseWindowTabPageItemRenderer[] );
 
 
             if( tabList != null )
